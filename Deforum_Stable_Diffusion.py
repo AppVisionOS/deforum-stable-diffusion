@@ -113,9 +113,9 @@ root.models_path, root.output_path = get_model_output_paths(root)
 def ModelSetup():
     map_location = "cuda" #@param ["cpu", "cuda"]
     model_config = "v1-inference.yaml" #@param ["custom","v2-inference.yaml","v2-inference-v.yaml","v1-inference.yaml"]
-    model_checkpoint =  "Protogen_V2.2.ckpt" #@param ["custom","v2-1_768-ema-pruned.ckpt","v2-1_512-ema-pruned.ckpt","768-v-ema.ckpt","512-base-ema.ckpt","Protogen_V2.2.ckpt","v1-5-pruned.ckpt","v1-5-pruned-emaonly.ckpt","sd-v1-4-full-ema.ckpt","sd-v1-4.ckpt","sd-v1-3-full-ema.ckpt","sd-v1-3.ckpt","sd-v1-2-full-ema.ckpt","sd-v1-2.ckpt","sd-v1-1-full-ema.ckpt","sd-v1-1.ckpt", "robo-diffusion-v1.ckpt","wd-v1-3-float16.ckpt"]
+    model_checkpoint =  "custom" #@param ["custom","v2-1_768-ema-pruned.ckpt","v2-1_512-ema-pruned.ckpt","768-v-ema.ckpt","512-base-ema.ckpt","Protogen_V2.2.ckpt","v1-5-pruned.ckpt","v1-5-pruned-emaonly.ckpt","sd-v1-4-full-ema.ckpt","sd-v1-4.ckpt","sd-v1-3-full-ema.ckpt","sd-v1-3.ckpt","sd-v1-2-full-ema.ckpt","sd-v1-2.ckpt","sd-v1-1-full-ema.ckpt","sd-v1-1.ckpt", "robo-diffusion-v1.ckpt","wd-v1-3-float16.ckpt"]
     custom_config_path = "" #@param {type:"string"}
-    custom_checkpoint_path = "" #@param {type:"string"}
+    custom_checkpoint_path = "models/dungeonsNWaifusV2225D_dungeonsNWaifus22.safetensors" #@param {type:"string"}
     return locals()
 
 root.__dict__.update(ModelSetup())
@@ -137,18 +137,18 @@ root.model, root.device = load_model(root, load_on_run_all=True, check_sha256=Tr
 def DeforumAnimArgs():
 
     #@markdown ####**Animation:**
-    animation_mode = 'none' #@param ['None', '2D', '3D', 'Video Input', 'Interpolation'] {type:'string'}
-    max_frames = 1000 #@param {type:"number"}
+    animation_mode = '3D' #@param ['None', '2D', '3D', 'Video Input', 'Interpolation'] {type:'string'}
+    max_frames = 120 #@param {type:"number"}
     border = 'replicate' #@param ['wrap', 'replicate'] {type:'string'}
 
     #@markdown ####**Motion Parameters:**
     angle = "0:(0)"#@param {type:"string"}
-    zoom = "0:(1.04)"#@param {type:"string"}
-    translation_x = "0:(10*sin(2*3.14*t/10))"#@param {type:"string"}
+    zoom = "0:(1)"#@param {type:"string"}
+    translation_x = "0:(0),10:(1.5),65:(1.5),75:(0),85:(-1.5),300:(-1.5),315:(0),330:(1.5)"#@param {type:"string"}
     translation_y = "0:(0)"#@param {type:"string"}
-    translation_z = "0:(10)"#@param {type:"string"}
+    translation_z = "0:(0), 10:(1),65:(1),75:(0),85:(-1),300:(-1),315:(0),330:(1.5)"#@param {type:"string"}
     rotation_3d_x = "0:(0)"#@param {type:"string"}
-    rotation_3d_y = "0:(0)"#@param {type:"string"}
+    rotation_3d_y = "0:(0), 10:(-0.3),65:(-0.3),75:(0),85:(0.3),300:(0.3),315:(0),330:(-0.3)"#@param {type:"string"}
     rotation_3d_z = "0:(0)"#@param {type:"string"}
     flip_2d_perspective = False #@param {type:"boolean"}
     perspective_flip_theta = "0:(0)"#@param {type:"string"}
@@ -156,7 +156,7 @@ def DeforumAnimArgs():
     perspective_flip_gamma = "0:(0)"#@param {type:"string"}
     perspective_flip_fv = "0:(53)"#@param {type:"string"}
     noise_schedule = "0: (0.02)"#@param {type:"string"}
-    strength_schedule = "0: (0.65)"#@param {type:"string"}
+    strength_schedule = "0: (0.8),15:(0.6),300:(0.6),301:(0.8),315:(0.6)"#@param {type:"string"}
     contrast_schedule = "0: (1.0)"#@param {type:"string"}
     hybrid_comp_alpha_schedule = "0:(1)" #@param {type:"string"}
     hybrid_comp_mask_blend_alpha_schedule = "0:(0.5)" #@param {type:"string"}
@@ -175,7 +175,7 @@ def DeforumAnimArgs():
     threshold_schedule = "0: (0.0)"#@param {type:"string"}
 
     #@markdown ####**Coherence:**
-    color_coherence = 'Match Frame 0 LAB' #@param ['None', 'Match Frame 0 HSV', 'Match Frame 0 LAB', 'Match Frame 0 RGB', 'Video Input'] {type:'string'}
+    color_coherence = 'Match Frame 0 HSV' #@param ['None', 'Match Frame 0 HSV', 'Match Frame 0 LAB', 'Match Frame 0 RGB', 'Video Input'] {type:'string'}
     color_coherence_video_every_N_frames = 1 #@param {type:"integer"}
     color_force_grayscale = False #@param {type:"boolean"}
     diffusion_cadence = '1' #@param ['1','2','3','4','5','6','7','8'] {type:'string'}
@@ -191,11 +191,11 @@ def DeforumAnimArgs():
     save_depth_maps = False #@param {type:"boolean"}
 
     #@markdown ####**Video Input:**
-    video_init_path ='/content/video_in.mp4'#@param {type:"string"}
+    video_init_path =''#@param {type:"string"}
     extract_nth_frame = 1#@param {type:"number"}
     overwrite_extracted_frames = True #@param {type:"boolean"}
     use_mask_video = False #@param {type:"boolean"}
-    video_mask_path ='/content/video_in.mp4'#@param {type:"string"}
+    video_mask_path =''#@param {type:"string"}
 
     #@markdown ####**Hybrid Video for 2D/3D Animation Mode:**
     hybrid_generate_inputframes = False #@param {type:"boolean"}
@@ -227,12 +227,14 @@ def DeforumAnimArgs():
 # !! }}
 # prompts
 prompts = {
-    0: "a beautiful lake by Asher Brown Durand, trending on Artstation",
-    10: "a beautiful portrait of a woman by Artgerm, trending on Artstation",
+    0: "(extremely detailed 8k wallpaper),a fearful necromancer jumping to the camera, gold doors, old house, intricate, high detail, dramatic",
+    0: "(extremely detailed 8k wallpaper),scary skulls around house, gold doors, old house, intricate, high detail, dramatic",
+    0: "(extremely detailed 8k wallpaper),a giant scary spider, gold doors, old house, intricate, high detail, dramatic",
+    0: "(extremely detailed 8k wallpaper),scary bugs, scary skeletons, gold doors, old house, intricate, high detail, dramatic",
 }
 
 neg_prompts = {
-    0: "mountain",
+    0: "EasyNegative, cartoon, 3d, disfigured, bad art, ugly, monstrous, repulsive, grotesque, deformed, poorly drawn, boring, sketch, (bad-hands-5)",
 }
 
 # can be a string, list, or dictionary
@@ -255,7 +257,7 @@ custom_settings_file = "/content/drive/MyDrive/Settings.txt"#@param {type:"strin
 def DeforumArgs():
     #@markdown **Image Settings**
     W = 512 #@param
-    H = 512 #@param
+    H = 960 #@param
     W, H = map(lambda x: x - x % 64, (W, H))  # resize to integer multiple of 64
     bit_depth_output = 8 #@param [8, 16, 32] {type:"raw"}
 
@@ -279,7 +281,7 @@ def DeforumArgs():
     n_batch = 1 #@param
     n_samples = 1 #@param
     batch_name = "StableFun" #@param {type:"string"}
-    filename_format = "{timestring}_{index}_{prompt}.png" #@param ["{timestring}_{index}_{seed}.png","{timestring}_{index}_{prompt}.png"]
+    filename_format = "{timestring}_{index}.png" #@param ["{timestring}_{index}_{seed}.png","{timestring}_{index}_{prompt}.png"]
     seed_behavior = "iter" #@param ["iter","fixed","random","ladder","alternate"]
     seed_iter_N = 1 #@param {type:'integer'}
     make_grid = False #@param {type:"boolean"}
@@ -424,7 +426,7 @@ else:
 # !!   "id": "YDoi7at9avqC"
 # !! }}
 #@markdown **New Version**
-skip_video_for_run_all = True #@param {type: 'boolean'}
+skip_video_for_run_all = False #@param {type: 'boolean'}
 create_gif = False #@param {type: 'boolean'}
 
 if skip_video_for_run_all == True:
