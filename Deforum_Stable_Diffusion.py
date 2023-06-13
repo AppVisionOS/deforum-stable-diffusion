@@ -262,10 +262,10 @@ def DeforumArgs():
     bit_depth_output = 8 #@param [8, 16, 32] {type:"raw"}
 
     #@markdown **Sampling Settings**
-    seed = -1 #@param
-    sampler = 'euler_ancestral' #@param ["klms","dpm2","dpm2_ancestral","heun","euler","euler_ancestral","plms", "ddim", "dpm_fast", "dpm_adaptive", "dpmpp_2s_a", "dpmpp_2m"]
-    steps = 50 #@param
-    scale = 7 #@param
+    seed = 15 #@param
+    sampler = 'euler' #@param ["klms","dpm2","dpm2_ancestral","heun","euler","euler_ancestral","plms", "ddim", "dpm_fast", "dpm_adaptive", "dpmpp_2s_a", "dpmpp_2m"]
+    steps = 80 #@param
+    scale = 20 #@param
     ddim_eta = 0.0 #@param
     dynamic_threshold = None
     static_threshold = None   
@@ -282,17 +282,17 @@ def DeforumArgs():
     n_samples = 1 #@param
     batch_name = "StableFun" #@param {type:"string"}
     filename_format = "{timestring}_{index}.png" #@param ["{timestring}_{index}_{seed}.png","{timestring}_{index}_{prompt}.png"]
-    seed_behavior = "iter" #@param ["iter","fixed","random","ladder","alternate"]
+    seed_behavior = "ladder" #@param ["iter","fixed","random","ladder","alternate"]
     seed_iter_N = 1 #@param {type:'integer'}
     make_grid = False #@param {type:"boolean"}
     grid_rows = 2 #@param 
     outdir = get_output_folder(root.output_path, batch_name)
 
     #@markdown **Init Settings**
-    use_init = False #@param {type:"boolean"}
-    strength = 0.65 #@param {type:"number"}
+    use_init = True #@param {type:"boolean"}
+    strength = 0.9 #@param {type:"number"}
     strength_0_no_init = True # Set the strength to 0 automatically when no init image is used
-    init_image = "https://cdn.pixabay.com/photo/2022/07/30/13/10/green-longhorn-beetle-7353749_1280.jpg" #@param {type:"string"}
+    init_image = "input/input_raw_last_frame.jpg" #@param {type:"string"}
     add_init_noise = False #@param {type:"boolean"}
     init_noise = 0.01 #@param
     # Whiter areas of the mask are areas that change more
@@ -309,9 +309,9 @@ def DeforumArgs():
     mask_overlay_blur = 5 # {type:"number"}
 
     #@markdown **Exposure/Contrast Conditional Settings**
-    mean_scale = 0 #@param {type:"number"}
-    var_scale = 0 #@param {type:"number"}
-    exposure_scale = 0 #@param {type:"number"}
+    mean_scale = 400 #@param {type:"number"}
+    var_scale = 200 #@param {type:"number"}
+    exposure_scale = 400 #@param {type:"number"}
     exposure_target = 0.5 #@param {type:"number"}
 
     #@markdown **Color Match Conditional Settings**
