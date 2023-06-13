@@ -227,10 +227,10 @@ def DeforumAnimArgs():
 # !! }}
 # prompts
 prompts = {
-    0: "(extremely detailed 8k wallpaper),a fearful necromancer jumping to the camera, gold doors, old house, intricate, high detail, dramatic",
-    0: "(extremely detailed 8k wallpaper),scary skulls around house, gold doors, old house, intricate, high detail, dramatic",
-    0: "(extremely detailed 8k wallpaper),a giant scary spider, gold doors, old house, intricate, high detail, dramatic",
-    0: "(extremely detailed 8k wallpaper),scary bugs, scary skeletons, gold doors, old house, intricate, high detail, dramatic",
+    0: "(extremely detailed 8k wallpaper),a fearful necromancer jumping to the camera,in weathered old house, intricate, high detail, dramatic",
+    40: "(extremely detailed 8k wallpaper),fearful skull heads, in weathered old house,intricate, high detail, dramatic",
+    80: "(extremely detailed 8k wallpaper),a giant fearful spider, fearful bugs on floor, in weathered old house, intricate details, high detail, dramatic",
+    120: "(extremely detailed 8k wallpaper),fearful monsters, in weathered old house, intricate details, high detail, dramatic",
 }
 
 neg_prompts = {
