@@ -156,7 +156,7 @@ def render_image_batch(root, args, cond_prompts, uncond_prompts):
                         if args.filename_format == "{timestring}_{index}_{prompt}.png":
                             filename = f"{args.timestring}_{index:05}_{sanitize(cond_prompt)[:160]}.png"
                         else:
-                            filename = f"{args.timestring}_{index:05}_{args.seed}.png"
+                            filename = f"{args.timestring}_{index:05}.png"
                         save_8_16_or_32bpc_image(image, args.outdir, filename, args.bit_depth_output)
                     if args.display_samples:
                         if args.bit_depth_output != 8:
