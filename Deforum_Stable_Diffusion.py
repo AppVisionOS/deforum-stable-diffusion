@@ -144,12 +144,12 @@ def DeforumAnimArgs():
     #@markdown ####**Motion Parameters:**
     angle = "0:(0)"#@param {type:"string"}
     zoom = "0:(1)"#@param {type:"string"}
-    translation_x = "0:(0)"#@param {type:"string"}
-    translation_y = "0:(0)"#@param {type:"string"}
+    translation_x = "0:(0), 40:(5), 80:(0), 120:(5)"#@param {type:"string"}
+    translation_y = "0:(0), 40:(5), 80:(0), 120:(5)"#@param {type:"string"}
     translation_z = "0:(0)"#@param {type:"string"}
-    rotation_3d_x = "0:(0), 120:(2)"#@param {type:"string"}
-    rotation_3d_y = "0:(0), 120:(2)"#@param {type:"string"}
-    rotation_3d_z = "0:(0), 120:(2)"#@param {type:"string"}
+    rotation_3d_x = "0:(0)"#@param {type:"string"}
+    rotation_3d_y = "0:(0)"#@param {type:"string"}
+    rotation_3d_z = "0:(0), 40:(5), 80:(0), 120:(5)"#@param {type:"string"}
     flip_2d_perspective = False #@param {type:"boolean"}
     perspective_flip_theta = "0:(0)"#@param {type:"string"}
     perspective_flip_phi = "0:(t%15)"#@param {type:"string"}
@@ -227,10 +227,10 @@ def DeforumAnimArgs():
 # !! }}
 # prompts
 prompts = {
-    0: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful creature, intricate, high detail, dramatic, cinematic",
-    40: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful creature, scary spiders, intricate, high detail, dramatic, cinematic",
-    80: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful creature, scary spiders, scary souls, intricate, high detail, dramatic, cinematic",
-    120: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful creature, scary spiders, scary souls, giant bugs, intricate, high detail, dramatic, cinematic",
+    0: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful skeleton necromancer, intricate, high detail, dramatic, cinematic",
+    40: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful skeleton necromancer, scary spiders, intricate, high detail, dramatic, cinematic",
+    80: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful skeleton necromancer, scary spiders, scary souls, intricate, high detail, dramatic, cinematic",
+    120: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful skeleton necromancer, scary spiders, scary souls, giant bugs, intricate, high detail, dramatic, cinematic",
 }
 
 neg_prompts = {
