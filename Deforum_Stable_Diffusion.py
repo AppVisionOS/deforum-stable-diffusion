@@ -227,11 +227,11 @@ def DeforumAnimArgs():
 # !! }}
 # prompts
 prompts = {
-    0: "methurlant, close up photo, complex robot, android, handsome man, young, solo, machinery and circuitry, outdoors, wasteland, exposed mechanical components, metallic beauty, biological elements, powerful visual impact, surreal, gritty, atmospheric, cinematic, stylized, contrast, comic, eerie, (8K, UHD:1.2), (photorealistic:1.2), Best quality, masterpiece",
+    0: "8k,interdenominational beautiful goddess made of fractals from dmt hyperspace, infinity, (made of small fractals and multicolored filigree, intricate patterns, detailed texture), enlightened and ascending, photorealistic, hd, dramatic lighting, Intricate, vibrant colors, (highly detailed), centered, sharp focus, RAW photo, high quality, HDR, rainbow colors, lsd, drugs, psychedelic, hyperdetail, smoke, vortex, hyperspace, lsd, halucinations, spirit worlds, on a background of fractal eyes",
 }
 
 neg_prompts = {
-    0: "nude, easynegative, (worst quality:0.8), verybadimagenegative_v1.3, watermark, URl, signature, depth of field, bokeh, Asian-Less-Neg, low quality, lowres, monochrome, text, logo"
+    0: "nude, blank, negative space, space, blur, blurry, out of focus, low quality"
 }
 
 # can be a string, list, or dictionary
@@ -289,7 +289,7 @@ def DeforumArgs():
     use_init = True #@param {type:"boolean"}
     strength = 0.9 #@param {type:"number"}
     strength_0_no_init = True # Set the strength to 0 automatically when no init image is used
-    init_image = "input/input_last_frame_cyber2.jpg" #@param {type:"string"}
+    init_image = "input/input_last_image_dmt.jpg" #@param {type:"string"}
     add_init_noise = False #@param {type:"boolean"}
     init_noise = 0.01 #@param
     # Whiter areas of the mask are areas that change more
