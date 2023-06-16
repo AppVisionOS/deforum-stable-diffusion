@@ -115,7 +115,7 @@ def ModelSetup():
     model_config = "v1-inference.yaml" #@param ["custom","v2-inference.yaml","v2-inference-v.yaml","v1-inference.yaml"]
     model_checkpoint =  "custom" #@param ["custom","v2-1_768-ema-pruned.ckpt","v2-1_512-ema-pruned.ckpt","768-v-ema.ckpt","512-base-ema.ckpt","Protogen_V2.2.ckpt","v1-5-pruned.ckpt","v1-5-pruned-emaonly.ckpt","sd-v1-4-full-ema.ckpt","sd-v1-4.ckpt","sd-v1-3-full-ema.ckpt","sd-v1-3.ckpt","sd-v1-2-full-ema.ckpt","sd-v1-2.ckpt","sd-v1-1-full-ema.ckpt","sd-v1-1.ckpt", "robo-diffusion-v1.ckpt","wd-v1-3-float16.ckpt"]
     custom_config_path = "" #@param {type:"string"}
-    custom_checkpoint_path = "models/dungeonsNWaifusV2225D_dungeonsNWaifus22.safetensors" #@param {type:"string"}
+    custom_checkpoint_path = "models/dreamshaper_631BakedVae.safetensors" #@param {type:"string"}
     return locals()
 
 root.__dict__.update(ModelSetup())
@@ -171,7 +171,7 @@ def DeforumAnimArgs():
     #@markdown ####**Unsharp mask (anti-blur) Parameters:**
     kernel_schedule = "0: (5)"#@param {type:"string"}
     sigma_schedule = "0: (1.0)"#@param {type:"string"}
-    amount_schedule = "0: (0.2)"#@param {type:"string"}
+    amount_schedule = "0: (0.02)"#@param {type:"string"}
     threshold_schedule = "0: (0.0)"#@param {type:"string"}
 
     #@markdown ####**Coherence:**
@@ -227,14 +227,11 @@ def DeforumAnimArgs():
 # !! }}
 # prompts
 prompts = {
-    0: "(extremely detailed 8k wallpaper),demon lord of hell, creepy, horror, giant spider, dark, volumetric lighting, intricate, high detail, dramatic, cinematic",
-    40: "(extremely detailed 8k wallpaper),arachnophobia, creepy, horror, giant spider, dark, volumetric lighting, intricate, high detail, dramatic, cinematic",
-    80: "(extremely detailed 8k wallpaper),fearful creatures, intricate, high detail, dramatic, cinematic",
-    120: "(extremely detailed 8k wallpaper),scary red eye skull demon, giant bugs, intricate, high detail, dramatic, cinematic",
+    0: "methurlant, close up photo, complex robot, android, beautiful girl, young, 1girl, solo, machinery and circuitry, outdoors, wasteland, exposed mechanical components, metallic beauty, biological elements, powerful visual impact, surreal, gritty, atmospheric, cinematic, stylized, contrast, comic, eerie, (8K, UHD:1.2), (photorealistic:1.2), Best quality, masterpiece",
 }
 
 neg_prompts = {
-    0: "nsfw, nude, lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
+    0: "nude, easynegative, (worst quality:0.8), verybadimagenegative_v1.3, watermark, URl, signature, depth of field, bokeh, Asian-Less-Neg, low quality, lowres, monochrome, text, logo"
 }
 
 # can be a string, list, or dictionary
@@ -292,7 +289,7 @@ def DeforumArgs():
     use_init = True #@param {type:"boolean"}
     strength = 0.9 #@param {type:"number"}
     strength_0_no_init = True # Set the strength to 0 automatically when no init image is used
-    init_image = "input/input_last_frame_creatures.jpg" #@param {type:"string"}
+    init_image = "input/input_last_frame_cyber.jpg" #@param {type:"string"}
     add_init_noise = False #@param {type:"boolean"}
     init_noise = 0.01 #@param
     # Whiter areas of the mask are areas that change more
@@ -309,9 +306,9 @@ def DeforumArgs():
     mask_overlay_blur = 5 # {type:"number"}
 
     #@markdown **Exposure/Contrast Conditional Settings**
-    mean_scale = 400 #@param {type:"number"}
-    var_scale = 200 #@param {type:"number"}
-    exposure_scale = 400 #@param {type:"number"}
+    mean_scale = 0 #@param {type:"number"}
+    var_scale = 0 #@param {type:"number"}
+    exposure_scale = 0 #@param {type:"number"}
     exposure_target = 0.5 #@param {type:"number"}
 
     #@markdown **Color Match Conditional Settings**
