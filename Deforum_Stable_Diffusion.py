@@ -115,7 +115,7 @@ def ModelSetup():
     model_config = "v1-inference.yaml" #@param ["custom","v2-inference.yaml","v2-inference-v.yaml","v1-inference.yaml"]
     model_checkpoint =  "custom" #@param ["custom","v2-1_768-ema-pruned.ckpt","v2-1_512-ema-pruned.ckpt","768-v-ema.ckpt","512-base-ema.ckpt","Protogen_V2.2.ckpt","v1-5-pruned.ckpt","v1-5-pruned-emaonly.ckpt","sd-v1-4-full-ema.ckpt","sd-v1-4.ckpt","sd-v1-3-full-ema.ckpt","sd-v1-3.ckpt","sd-v1-2-full-ema.ckpt","sd-v1-2.ckpt","sd-v1-1-full-ema.ckpt","sd-v1-1.ckpt", "robo-diffusion-v1.ckpt","wd-v1-3-float16.ckpt"]
     custom_config_path = "" #@param {type:"string"}
-    custom_checkpoint_path = "models/dungeonsNWaifusV2225D_dungeonsNWaifus22.safetensors" #@param {type:"string"}
+    custom_checkpoint_path = "models/dreamshaper_631BakedVae.safetensors" #@param {type:"string"}
     return locals()
 
 root.__dict__.update(ModelSetup())
@@ -155,7 +155,7 @@ def DeforumAnimArgs():
     perspective_flip_phi = "0:(t%15)"#@param {type:"string"}
     perspective_flip_gamma = "0:(0)"#@param {type:"string"}
     perspective_flip_fv = "0:(53)"#@param {type:"string"}
-    noise_schedule = "0: (0.02)"#@param {type:"string"}
+    noise_schedule = "0: (0)"#@param {type:"string"}
     strength_schedule = "0: (0.8),15:(0.6),300:(0.6),301:(0.8),315:(0.6)"#@param {type:"string"}
     contrast_schedule = "0: (1.0)"#@param {type:"string"}
     hybrid_comp_alpha_schedule = "0:(1)" #@param {type:"string"}
@@ -227,14 +227,11 @@ def DeforumAnimArgs():
 # !! }}
 # prompts
 prompts = {
-    0: "(extremely detailed 8k wallpaper),a fearful necromancer jumping to the camera,in weathered old house, intricate, high detail, dramatic",
-    40: "(extremely detailed 8k wallpaper),fearful skull heads, in weathered old house,intricate, high detail, dramatic",
-    80: "(extremely detailed 8k wallpaper),a giant fearful spider, fearful bugs on floor, in weathered old house, intricate details, high detail, dramatic",
-    120: "(extremely detailed 8k wallpaper),fearful monsters, in weathered old house, intricate details, high detail, dramatic",
+    0: "portrait of medusa, fantasy, intricate, elegant, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration",
 }
 
 neg_prompts = {
-    0: "EasyNegative, cartoon, 3d, disfigured, bad art, ugly, monstrous, repulsive, grotesque, deformed, poorly drawn, boring, sketch, (bad-hands-5)",
+    0: "nsfw, lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature",
 }
 
 # can be a string, list, or dictionary
@@ -256,15 +253,15 @@ custom_settings_file = "/content/drive/MyDrive/Settings.txt"#@param {type:"strin
 
 def DeforumArgs():
     #@markdown **Image Settings**
-    W = 512 #@param
-    H = 960 #@param
+    W = 576 #@param
+    H = 1024 #@param
     W, H = map(lambda x: x - x % 64, (W, H))  # resize to integer multiple of 64
     bit_depth_output = 8 #@param [8, 16, 32] {type:"raw"}
 
     #@markdown **Sampling Settings**
     seed = 15 #@param
     sampler = 'euler' #@param ["klms","dpm2","dpm2_ancestral","heun","euler","euler_ancestral","plms", "ddim", "dpm_fast", "dpm_adaptive", "dpmpp_2s_a", "dpmpp_2m"]
-    steps = 80 #@param
+    steps = 50 #@param
     scale = 20 #@param
     ddim_eta = 0.0 #@param
     dynamic_threshold = None
@@ -292,7 +289,7 @@ def DeforumArgs():
     use_init = True #@param {type:"boolean"}
     strength = 0.9 #@param {type:"number"}
     strength_0_no_init = True # Set the strength to 0 automatically when no init image is used
-    init_image = "input/input_raw_last_frame.jpg" #@param {type:"string"}
+    init_image = "input/input_last_frame_mythology2.jpg" #@param {type:"string"}
     add_init_noise = False #@param {type:"boolean"}
     init_noise = 0.01 #@param
     # Whiter areas of the mask are areas that change more
@@ -309,9 +306,9 @@ def DeforumArgs():
     mask_overlay_blur = 5 # {type:"number"}
 
     #@markdown **Exposure/Contrast Conditional Settings**
-    mean_scale = 400 #@param {type:"number"}
-    var_scale = 200 #@param {type:"number"}
-    exposure_scale = 400 #@param {type:"number"}
+    mean_scale = 0 #@param {type:"number"}
+    var_scale = 0 #@param {type:"number"}
+    exposure_scale = 0 #@param {type:"number"}
     exposure_target = 0.5 #@param {type:"number"}
 
     #@markdown **Color Match Conditional Settings**
