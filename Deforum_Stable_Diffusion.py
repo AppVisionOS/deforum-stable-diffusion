@@ -227,10 +227,10 @@ def DeforumAnimArgs():
 # !! }}
 # prompts
 prompts = {
-    0: "(extremely detailed 8k wallpaper),portrait of fearful demon, intricate, high detail, dramatic, cinematic",
-    40: "(extremely detailed 8k wallpaper),scary giant spiders, intricate, high detail, dramatic, cinematic",
+    0: "(extremely detailed 8k wallpaper),demon lord of hell, creepy, horror, giant spider, dark, volumetric lighting, intricate, high detail, dramatic, cinematic",
+    40: "(extremely detailed 8k wallpaper),arachnophobia, creepy, horror, giant spider, dark, volumetric lighting, intricate, high detail, dramatic, cinematic",
     80: "(extremely detailed 8k wallpaper),fearful creatures, intricate, high detail, dramatic, cinematic",
-    120: "(extremely detailed 8k wallpaper),scary red eye souls, giant bugs, intricate, high detail, dramatic, cinematic",
+    120: "(extremely detailed 8k wallpaper),scary red eye skull demon, giant bugs, intricate, high detail, dramatic, cinematic",
 }
 
 neg_prompts = {
@@ -262,9 +262,9 @@ def DeforumArgs():
     bit_depth_output = 8 #@param [8, 16, 32] {type:"raw"}
 
     #@markdown **Sampling Settings**
-    seed = 500 #@param
+    seed = 15 #@param
     sampler = 'euler' #@param ["klms","dpm2","dpm2_ancestral","heun","euler","euler_ancestral","plms", "ddim", "dpm_fast", "dpm_adaptive", "dpmpp_2s_a", "dpmpp_2m"]
-    steps = 50 #@param
+    steps = 80 #@param
     scale = 20 #@param
     ddim_eta = 0.0 #@param
     dynamic_threshold = None
