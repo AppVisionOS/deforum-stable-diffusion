@@ -227,7 +227,7 @@ def DeforumAnimArgs():
 # !! }}
 # prompts
 prompts = {
-    0: "methurlant, close up photo, complex robot, android, beautiful girl, young, 1girl, solo, machinery and circuitry, outdoors, wasteland, exposed mechanical components, metallic beauty, biological elements, powerful visual impact, surreal, gritty, atmospheric, cinematic, stylized, contrast, comic, eerie, (8K, UHD:1.2), (photorealistic:1.2), Best quality, masterpiece",
+    0: "methurlant, close up photo, complex robot, android, handsome man, young, solo, machinery and circuitry, outdoors, wasteland, exposed mechanical components, metallic beauty, biological elements, powerful visual impact, surreal, gritty, atmospheric, cinematic, stylized, contrast, comic, eerie, (8K, UHD:1.2), (photorealistic:1.2), Best quality, masterpiece",
 }
 
 neg_prompts = {
@@ -289,7 +289,7 @@ def DeforumArgs():
     use_init = True #@param {type:"boolean"}
     strength = 0.9 #@param {type:"number"}
     strength_0_no_init = True # Set the strength to 0 automatically when no init image is used
-    init_image = "input/input_last_frame_cyber.jpg" #@param {type:"string"}
+    init_image = "input/input_last_frame_cyber2.jpg" #@param {type:"string"}
     add_init_noise = False #@param {type:"boolean"}
     init_noise = 0.01 #@param
     # Whiter areas of the mask are areas that change more
