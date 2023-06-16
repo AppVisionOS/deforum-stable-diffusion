@@ -144,12 +144,12 @@ def DeforumAnimArgs():
     #@markdown ####**Motion Parameters:**
     angle = "0:(0)"#@param {type:"string"}
     zoom = "0:(1)"#@param {type:"string"}
-    translation_x = "0:(0), 40:(5), 80:(0), 120:(5)"#@param {type:"string"}
-    translation_y = "0:(0), 40:(5), 80:(0), 120:(5)"#@param {type:"string"}
-    translation_z = "0:(0)"#@param {type:"string"}
+    translation_x = "0:(0), 10:(1.5), 65:(1.5), 75:(0), 85:(-1.5), 300:(-1.5),315:(0), 330:(1.5)"#@param {type:"string"}
+    translation_y = "0:(0)"#@param {type:"string"}
+    translation_z = "0:(0), 10:(-0.3), 65:(-0.3), 75:(0), 85:(0.3),300:(0.3), 315:(0), 330:(-0.3)"#@param {type:"string"}
     rotation_3d_x = "0:(0)"#@param {type:"string"}
-    rotation_3d_y = "0:(0)"#@param {type:"string"}
-    rotation_3d_z = "0:(0), 40:(5), 80:(0), 120:(5)"#@param {type:"string"}
+    rotation_3d_y = "0:(0), 10:(-0.3), 65:(-0.3), 75:(0), 85:(0.3),300:(0.3), 315:(0), 330:(-0.3)"#@param {type:"string"}
+    rotation_3d_z = "0:(0)"#@param {type:"string"}
     flip_2d_perspective = False #@param {type:"boolean"}
     perspective_flip_theta = "0:(0)"#@param {type:"string"}
     perspective_flip_phi = "0:(t%15)"#@param {type:"string"}
@@ -227,10 +227,10 @@ def DeforumAnimArgs():
 # !! }}
 # prompts
 prompts = {
-    0: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful skeleton necromancer, intricate, high detail, dramatic, cinematic",
-    40: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful skeleton necromancer, scary spiders, intricate, high detail, dramatic, cinematic",
-    80: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful skeleton necromancer, scary spiders, scary souls, intricate, high detail, dramatic, cinematic",
-    120: "(extremely detailed 8k wallpaper),a medium shot photo of a fearful skeleton necromancer, scary spiders, scary souls, giant bugs, intricate, high detail, dramatic, cinematic",
+    0: "(extremely detailed 8k wallpaper),portrait of fearful demon, intricate, high detail, dramatic, cinematic",
+    40: "(extremely detailed 8k wallpaper),scary giant spiders, intricate, high detail, dramatic, cinematic",
+    80: "(extremely detailed 8k wallpaper),fearful creatures, intricate, high detail, dramatic, cinematic",
+    120: "(extremely detailed 8k wallpaper),scary red eye souls, giant bugs, intricate, high detail, dramatic, cinematic",
 }
 
 neg_prompts = {
@@ -262,7 +262,7 @@ def DeforumArgs():
     bit_depth_output = 8 #@param [8, 16, 32] {type:"raw"}
 
     #@markdown **Sampling Settings**
-    seed = 15 #@param
+    seed = 500 #@param
     sampler = 'euler' #@param ["klms","dpm2","dpm2_ancestral","heun","euler","euler_ancestral","plms", "ddim", "dpm_fast", "dpm_adaptive", "dpmpp_2s_a", "dpmpp_2m"]
     steps = 50 #@param
     scale = 20 #@param
