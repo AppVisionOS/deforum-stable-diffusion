@@ -53,7 +53,7 @@ def install_requirements(verbose=False):
         "torchvision",
         "torchaudio"
     ]
-    extra_index_url = "https://download.pytorch.org/whl/nightly/cu121"
+    extra_index_url = "https://download.pytorch.org/whl/cu118"
     pip_install_packages(torch, extra_index_url=extra_index_url, verbose=verbose, pre=True)
 
     # List of common packages to install

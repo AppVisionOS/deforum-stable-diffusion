@@ -113,9 +113,9 @@ root.models_path, root.output_path = get_model_output_paths(root)
 def ModelSetup():
     map_location = "cuda" #@param ["cpu", "cuda"]
     model_config = "v1-inference.yaml" #@param ["custom","v2-inference.yaml","v2-inference-v.yaml","v1-inference.yaml"]
-    model_checkpoint =  "Protogen_V2.2.ckpt" #@param ["custom","v2-1_768-ema-pruned.ckpt","v2-1_512-ema-pruned.ckpt","768-v-ema.ckpt","512-base-ema.ckpt","Protogen_V2.2.ckpt","v1-5-pruned.ckpt","v1-5-pruned-emaonly.ckpt","sd-v1-4-full-ema.ckpt","sd-v1-4.ckpt","sd-v1-3-full-ema.ckpt","sd-v1-3.ckpt","sd-v1-2-full-ema.ckpt","sd-v1-2.ckpt","sd-v1-1-full-ema.ckpt","sd-v1-1.ckpt", "robo-diffusion-v1.ckpt","wd-v1-3-float16.ckpt"]
+    model_checkpoint =  "custom" #@param ["custom","v2-1_768-ema-pruned.ckpt","v2-1_512-ema-pruned.ckpt","768-v-ema.ckpt","512-base-ema.ckpt","Protogen_V2.2.ckpt","v1-5-pruned.ckpt","v1-5-pruned-emaonly.ckpt","sd-v1-4-full-ema.ckpt","sd-v1-4.ckpt","sd-v1-3-full-ema.ckpt","sd-v1-3.ckpt","sd-v1-2-full-ema.ckpt","sd-v1-2.ckpt","sd-v1-1-full-ema.ckpt","sd-v1-1.ckpt", "robo-diffusion-v1.ckpt","wd-v1-3-float16.ckpt"]
     custom_config_path = "" #@param {type:"string"}
-    custom_checkpoint_path = "" #@param {type:"string"}
+    custom_checkpoint_path = "models/dreamshaper_631BakedVae.safetensors" #@param {type:"string"}
     return locals()
 
 root.__dict__.update(ModelSetup())
@@ -137,26 +137,26 @@ root.model, root.device = load_model(root, load_on_run_all=True, check_sha256=Tr
 def DeforumAnimArgs():
 
     #@markdown ####**Animation:**
-    animation_mode = 'none' #@param ['None', '2D', '3D', 'Video Input', 'Interpolation'] {type:'string'}
-    max_frames = 1000 #@param {type:"number"}
+    animation_mode = '3D' #@param ['None', '2D', '3D', 'Video Input', 'Interpolation'] {type:'string'}
+    max_frames = 120 #@param {type:"number"}
     border = 'replicate' #@param ['wrap', 'replicate'] {type:'string'}
 
     #@markdown ####**Motion Parameters:**
     angle = "0:(0)"#@param {type:"string"}
-    zoom = "0:(1.04)"#@param {type:"string"}
-    translation_x = "0:(10*sin(2*3.14*t/10))"#@param {type:"string"}
+    zoom = "0:(1)"#@param {type:"string"}
+    translation_x = "0:(0), 10:(1.5), 65:(1.5), 75:(0), 85:(-1.5), 300:(-1.5),315:(0), 330:(1.5)"#@param {type:"string"}
     translation_y = "0:(0)"#@param {type:"string"}
-    translation_z = "0:(10)"#@param {type:"string"}
+    translation_z = "0:(0), 10:(-0.3), 65:(-0.3), 75:(0), 85:(0.3),300:(0.3), 315:(0), 330:(-0.3)"#@param {type:"string"}
     rotation_3d_x = "0:(0)"#@param {type:"string"}
-    rotation_3d_y = "0:(0)"#@param {type:"string"}
+    rotation_3d_y = "0:(0), 10:(-0.3), 65:(-0.3), 75:(0), 85:(0.3),300:(0.3), 315:(0), 330:(-0.3)"#@param {type:"string"}
     rotation_3d_z = "0:(0)"#@param {type:"string"}
     flip_2d_perspective = False #@param {type:"boolean"}
     perspective_flip_theta = "0:(0)"#@param {type:"string"}
     perspective_flip_phi = "0:(t%15)"#@param {type:"string"}
     perspective_flip_gamma = "0:(0)"#@param {type:"string"}
     perspective_flip_fv = "0:(53)"#@param {type:"string"}
-    noise_schedule = "0: (0.02)"#@param {type:"string"}
-    strength_schedule = "0: (0.65)"#@param {type:"string"}
+    noise_schedule = "0: (0)"#@param {type:"string"}
+    strength_schedule = "0: (0.8),15:(0.6),300:(0.6),301:(0.8),315:(0.6)"#@param {type:"string"}
     contrast_schedule = "0: (1.0)"#@param {type:"string"}
     hybrid_comp_alpha_schedule = "0:(1)" #@param {type:"string"}
     hybrid_comp_mask_blend_alpha_schedule = "0:(0.5)" #@param {type:"string"}
@@ -171,11 +171,11 @@ def DeforumAnimArgs():
     #@markdown ####**Unsharp mask (anti-blur) Parameters:**
     kernel_schedule = "0: (5)"#@param {type:"string"}
     sigma_schedule = "0: (1.0)"#@param {type:"string"}
-    amount_schedule = "0: (0.2)"#@param {type:"string"}
+    amount_schedule = "0: (0.02)"#@param {type:"string"}
     threshold_schedule = "0: (0.0)"#@param {type:"string"}
 
     #@markdown ####**Coherence:**
-    color_coherence = 'Match Frame 0 LAB' #@param ['None', 'Match Frame 0 HSV', 'Match Frame 0 LAB', 'Match Frame 0 RGB', 'Video Input'] {type:'string'}
+    color_coherence = 'Match Frame 0 HSV' #@param ['None', 'Match Frame 0 HSV', 'Match Frame 0 LAB', 'Match Frame 0 RGB', 'Video Input'] {type:'string'}
     color_coherence_video_every_N_frames = 1 #@param {type:"integer"}
     color_force_grayscale = False #@param {type:"boolean"}
     diffusion_cadence = '1' #@param ['1','2','3','4','5','6','7','8'] {type:'string'}
@@ -191,11 +191,11 @@ def DeforumAnimArgs():
     save_depth_maps = False #@param {type:"boolean"}
 
     #@markdown ####**Video Input:**
-    video_init_path ='/content/video_in.mp4'#@param {type:"string"}
+    video_init_path =''#@param {type:"string"}
     extract_nth_frame = 1#@param {type:"number"}
     overwrite_extracted_frames = True #@param {type:"boolean"}
     use_mask_video = False #@param {type:"boolean"}
-    video_mask_path ='/content/video_in.mp4'#@param {type:"string"}
+    video_mask_path =''#@param {type:"string"}
 
     #@markdown ####**Hybrid Video for 2D/3D Animation Mode:**
     hybrid_generate_inputframes = False #@param {type:"boolean"}
@@ -227,12 +227,11 @@ def DeforumAnimArgs():
 # !! }}
 # prompts
 prompts = {
-    0: "a beautiful lake by Asher Brown Durand, trending on Artstation",
-    10: "a beautiful portrait of a woman by Artgerm, trending on Artstation",
+    0: "8k,interdenominational beautiful goddess made of fractals from dmt hyperspace, infinity, (made of small fractals and multicolored filigree, intricate patterns, detailed texture), enlightened and ascending, photorealistic, hd, dramatic lighting, Intricate, vibrant colors, (highly detailed), centered, sharp focus, RAW photo, high quality, HDR, rainbow colors, lsd, drugs, psychedelic, hyperdetail, smoke, vortex, hyperspace, lsd, halucinations, spirit worlds, on a background of fractal eyes",
 }
 
 neg_prompts = {
-    0: "mountain",
+    0: "nude, blank, negative space, space, lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands,poorly drawn eyes, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature"
 }
 
 # can be a string, list, or dictionary
@@ -254,16 +253,16 @@ custom_settings_file = "/content/drive/MyDrive/Settings.txt"#@param {type:"strin
 
 def DeforumArgs():
     #@markdown **Image Settings**
-    W = 512 #@param
-    H = 512 #@param
+    W = 576 #@param
+    H = 1024 #@param
     W, H = map(lambda x: x - x % 64, (W, H))  # resize to integer multiple of 64
     bit_depth_output = 8 #@param [8, 16, 32] {type:"raw"}
 
     #@markdown **Sampling Settings**
-    seed = -1 #@param
-    sampler = 'euler_ancestral' #@param ["klms","dpm2","dpm2_ancestral","heun","euler","euler_ancestral","plms", "ddim", "dpm_fast", "dpm_adaptive", "dpmpp_2s_a", "dpmpp_2m"]
-    steps = 50 #@param
-    scale = 7 #@param
+    seed = 15 #@param
+    sampler = 'euler' #@param ["klms","dpm2","dpm2_ancestral","heun","euler","euler_ancestral","plms", "ddim", "dpm_fast", "dpm_adaptive", "dpmpp_2s_a", "dpmpp_2m"]
+    steps = 80 #@param
+    scale = 20 #@param
     ddim_eta = 0.0 #@param
     dynamic_threshold = None
     static_threshold = None   
@@ -279,18 +278,18 @@ def DeforumArgs():
     n_batch = 1 #@param
     n_samples = 1 #@param
     batch_name = "StableFun" #@param {type:"string"}
-    filename_format = "{timestring}_{index}_{prompt}.png" #@param ["{timestring}_{index}_{seed}.png","{timestring}_{index}_{prompt}.png"]
-    seed_behavior = "iter" #@param ["iter","fixed","random","ladder","alternate"]
+    filename_format = "{timestring}_{index}.png" #@param ["{timestring}_{index}_{seed}.png","{timestring}_{index}_{prompt}.png"]
+    seed_behavior = "ladder" #@param ["iter","fixed","random","ladder","alternate"]
     seed_iter_N = 1 #@param {type:'integer'}
     make_grid = False #@param {type:"boolean"}
     grid_rows = 2 #@param 
     outdir = get_output_folder(root.output_path, batch_name)
 
     #@markdown **Init Settings**
-    use_init = False #@param {type:"boolean"}
-    strength = 0.65 #@param {type:"number"}
+    use_init = True #@param {type:"boolean"}
+    strength = 0.9 #@param {type:"number"}
     strength_0_no_init = True # Set the strength to 0 automatically when no init image is used
-    init_image = "https://cdn.pixabay.com/photo/2022/07/30/13/10/green-longhorn-beetle-7353749_1280.jpg" #@param {type:"string"}
+    init_image = "input/input_last_image_dmt.jpg" #@param {type:"string"}
     add_init_noise = False #@param {type:"boolean"}
     init_noise = 0.01 #@param
     # Whiter areas of the mask are areas that change more
@@ -424,7 +423,7 @@ else:
 # !!   "id": "YDoi7at9avqC"
 # !! }}
 #@markdown **New Version**
-skip_video_for_run_all = True #@param {type: 'boolean'}
+skip_video_for_run_all = False #@param {type: 'boolean'}
 create_gif = False #@param {type: 'boolean'}
 
 if skip_video_for_run_all == True:
