@@ -20,3 +20,6 @@ models/
 # ffmpeg
 ffmpeg
 .empty
+
+# Cog tmp
+.cog/tmp
