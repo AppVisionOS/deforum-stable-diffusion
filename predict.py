@@ -23,6 +23,7 @@ from helpers.render import (
     render_interpolation,
 )
 from helpers.model_load import (
+    download_model,
     make_linear_decode,
 )
 from helpers.aesthetics import load_aesthetics_model
@@ -32,8 +33,19 @@ from helpers.prompts import Prompts
 
 MODEL_CACHE = "models"
 
+MODEL_MAP = {
+    "dreamshaper_631BakedVae.safetensors": {
+        "sha256": None,
+        "url": "https://civitai.com/api/download/models/94081",
+        "requires_login": False,
+    }
+}
+
 # TODO: add this method to helpers
 def prompt_formatter(prompts, max_frames):
+    # return if prompts is None
+    if prompts is None:
+        return prompts
     dict = {}
     prompts = prompts.split("|")
     assert len(prompts) > 0, "Please provide valid prompt for animation."
@@ -57,15 +69,20 @@ def prompt_formatter(prompts, max_frames):
         prompts = OrderedDict(sorted(dict.items()))
     return prompts
 
-
 class Predictor(BasePredictor):
     def setup(self):
         """Load the model into memory to make running multiple predictions efficient"""
         # Load the default model in setup()
-        self.default_ckpt = "dungeonsNWaifusV2225D_dungeonsNWaifus22.safetensors"
+        self.default_ckpt = "dreamshaper_631BakedVae.safetensors"
         default_model_ckpt_config_path = "configs/v1-inference.yaml"
         default_model_ckpt_path = os.path.join(MODEL_CACHE, self.default_ckpt)
         local_config = OmegaConf.load(default_model_ckpt_config_path)
+
+        # Check if model is downloaded and download if not
+        if not os.path.exists(default_model_ckpt_path):
+            print(f"Downloading model {self.default_ckpt}...")
+            _root = {"models_path": MODEL_CACHE, "model_checkpoint": self.default_ckpt}
+            download_model(MODEL_MAP, _root)
 
         self.default_model = load_model_from_config(
             local_config, default_model_ckpt_path, map_location="cuda"
@@ -77,20 +94,10 @@ class Predictor(BasePredictor):
         self,
         model_checkpoint: str = Input(
             choices=[
-                "v2-1_768-ema-pruned.ckpt",
-                "v2-1_512-ema-pruned.ckpt",
-                "768-v-ema.ckpt",
-                "512-base-ema.ckpt",
-                "Protogen_V2.2.ckpt",
-                "dungeonsNWaifusV2225D_dungeonsNWaifus22.safetensors",
-                "v1-5-pruned.ckpt",
-                "v1-5-pruned-emaonly.ckpt",
-                "sd-v1-4.ckpt",
-                "robo-diffusion-v1.ckpt",
-                "wd-v1-3-float16.ckpt",
+                "dreamshaper_631BakedVae.safetensors",
             ],
             description="Choose stable diffusion model.",
-            default="dungeonsNWaifusV2225D_dungeonsNWaifus22.safetensors",
+            default="dreamshaper_631BakedVae.safetensors",
         ),
         max_frames: int = Input(
             description="Number of frames for animation", default=200
@@ -144,7 +151,7 @@ class Predictor(BasePredictor):
             description="Random seed. Leave blank to randomize the seed", default=None
         ),
         fps: int = Input(
-            default=15, ge=10, le=60, description="Choose fps for the video."
+            default=12, ge=1, le=60, description="Choose fps for the video."
         ),
         clip_name: str = Input(
             choices=["ViT-L/14", "ViT-L/14@336px", "ViT-B/16", "ViT-B/32"],
@@ -154,6 +161,14 @@ class Predictor(BasePredictor):
         use_init: bool = Input(
             default=False,
             description="If not using init image, you can skip the next settings to setting the animation_mode.",
+        ),
+        add_init_noise: bool = Input(
+            default=False,
+            description="Add noise to init image. If not using init image, you can skip the next settings to setting the animation_mode.",
+        ),
+        init_noise: float = Input(
+            default=0.01,
+            description="The initial diffusion on the init image. If not using init image, you can skip the next settings to setting the animation_mode.",
         ),
         init_image: Path = Input(
             default=None, description="Provide init_image if use_init"
@@ -339,6 +354,19 @@ class Predictor(BasePredictor):
             ckpt_path = os.path.join(MODEL_CACHE, model_checkpoint)
             local_config = OmegaConf.load(ckpt_config_path)
 
+             # Check if model is downloaded and download if not
+            if not os.path.exists(ckpt_path):
+                # Check if model exist in MODEL_MAP
+                if model_checkpoint in MODEL_MAP:
+                    print(f"Downloading model (prediction) {self.default_ckpt}...")
+                    _root = {"models_path": MODEL_CACHE, "model_checkpoint": model_checkpoint}
+                    download_model(MODEL_MAP, _root)
+                else:
+                    raise ValueError(
+                        f"Model {model_checkpoint} not found in model zoo."
+                    )
+
+
             model = load_model_from_config(local_config, ckpt_path, map_location="cuda")
             model.to(self.device)
             root["model"] = model
@@ -381,6 +409,8 @@ class Predictor(BasePredictor):
             "use_init": use_init,
             "strength": strength,
             "strength_0_no_init": True,
+            "add_init_noise": add_init_noise,
+            "init_noise": init_noise,
             "init_image": str(init_image),
             "use_mask": use_mask,
             "use_alpha_as_mask": False,
