@@ -31,10 +31,10 @@ def make_linear_decode(model_version, device='cuda:0'):
 
 def download_model(model_map,root):
     
-    url = model_map[root.model_checkpoint]['url']
+    url = model_map[root['model_checkpoint']]['url']
 
     # CLI dialogue to authenticate download
-    if model_map[root.model_checkpoint]['requires_login']:
+    if model_map[root['model_checkpoint']]['requires_login']:
         print("This model requires an authentication token")
         print("Please ensure you have accepted the terms of service before continuing.")
 
@@ -46,7 +46,7 @@ def download_model(model_map,root):
         url = f"https://{username}:{token}@{path}"
 
     # contact server for model
-    print(f"..attempting to download {root.model_checkpoint}...this may take a while")
+    print(f"..attempting to download {root['model_checkpoint']}...this may take a while")
     ckpt_request = requests.get(url,stream=True)
     request_status = ckpt_request.status_code
 
@@ -59,9 +59,9 @@ def download_model(model_map,root):
         raise ConnectionError(f"Some other error has ocurred - response code: {request_status}")
 
     # write to model path
-    with open(os.path.join(root.models_path, root.model_checkpoint), 'wb') as model_file:
+    with open(os.path.join(root['models_path'], root['model_checkpoint']), 'wb') as model_file:
         file_size = int(ckpt_request.headers.get("Content-Length"))
-        with tqdm(total=file_size, unit='B', unit_scale=True, desc=root.model_checkpoint) as pbar:
+        with tqdm(total=file_size, unit='B', unit_scale=True, desc=root['model_checkpoint']) as pbar:
             for chunk in ckpt_request.iter_content(chunk_size=1024):
                 if chunk:  # filter out keep-alive new chunks
                     model_file.write(chunk)
